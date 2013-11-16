@@ -46,7 +46,7 @@ $def with (mode, set_point, duty_cycle, cycle_time, k_param, i_param, d_param)
 			//declare globals
         	var t, tempdataarray, heatdataarray, setpointdataarray, dutyCycle, options_temp, options_heat, plot, gaugeDisplay, newGaugeDisplay
         	var capture_on = 1;
-        	var temp_C, temp_F, setpoint_C
+        	var temp_C, setpoint_C
         	t = 0
         	
         	function findLS(selected_start, selected_end, in_pointArray) {
@@ -148,15 +148,8 @@ $def with (mode, set_point, duty_cycle, cycle_time, k_param, i_param, d_param)
 		            timeout:50000, 
 		            
 		            success: function(data){  
-		            	 
-		            	     //alert(data.mode);
-		            	     //temp_F = (9.0/5.0)*parseFloat(data.temp) + 32;
-		            	     //temp_F = temp_F.toFixed(2);
-		            	     temp_C = (5.0/9.0)*(parseFloat(data.temp) - 32);
-		            	     temp_C = temp_C.toFixed(2);
-		            	     
+		            	 		            	     
 		            	     jQuery('#tempResponse').html(data.temp);
-		            	     jQuery('#tempResponse_C').html(temp_C)
 		            	     jQuery('#modeResponse').html(data.mode);
 		            	     jQuery('#setpointResponse').html(data.set_point);
 		            	     jQuery('#dutycycleResponse').html(parseFloat(data.duty_cycle).toFixed(2));
@@ -289,18 +282,18 @@ $def with (mode, set_point, duty_cycle, cycle_time, k_param, i_param, d_param)
 						var options_gauge = {
 							majorTickLabel: true,
 							value: 60,
-							label: 'Temp',
+							label: 'Temp(C)',
 							unitsLabel: '' + String.fromCharCode(186),
-							min: 60,
-							max: 220,
+							min: -10,
+							max: 150,
 							majorTicks: 9,
 							minorTicks: 9, // small ticks inside each major tick
-							greenFrom: 60,
-							greenTo: 95,
-							yellowFrom: 95,
-							yellowTo: 150,
-							redFrom: 150,
-							redTo: 200
+							greenFrom: -10,
+							greenTo: 30,
+							yellowFrom: 30,
+							yellowTo: 80,
+							redFrom: 80,
+							redTo: 150
 						};
 						
 						gaugeDisplay = new Gauge( document.getElementById( 'tempGauge'), options_gauge );	
@@ -399,9 +392,6 @@ $def with (mode, set_point, duty_cycle, cycle_time, k_param, i_param, d_param)
 	    	<p align=center style="font-size: large;text-decoration: underline;">Current Status</p> 
 	     	<table>
 	     		<tr>
-			        <td align=right>Temperature(F): </td>
-			        <td id="tempResponse" align=right>temp</td>
-			        <td>&#176F</td> 
 			        <td align=right>Temperature(C): </td>
 			        <td id="tempResponse_C" align=right>temp</td>
 			        <td>&#176C</td> 
@@ -413,10 +403,10 @@ $def with (mode, set_point, duty_cycle, cycle_time, k_param, i_param, d_param)
 		        <tr>
 		    		<td align=right>Set Point: </td>
 		    		<td id="setpointResponse" align=right>0</td>
-		    		<td>&#176F</td>    	
+		    		<td>&#176C</td>    	
 		    		<td align=right>PID Kc parameter </td> 
 		    		<td id="k_paramResponse">0</td>
-		    		<td>%/&#176F</td>
+		    		<td>%/&#176C</td>
 	    		<tr>
 	    			<td align=right>Duty Cycle: </td>
 	    			<td id="dutycycleResponse" align=right>50</td>	
@@ -457,12 +447,12 @@ $def with (mode, set_point, duty_cycle, cycle_time, k_param, i_param, d_param)
 		    			<td>
 		    				<input type="text" name="setpoint"  maxlength = "4" size ="4" value=$set_point style="text-align: right;"/> 
 		    			</td>
-		    			<td>&#176F</td>
+		    			<td>&#176C</td>
 		    			<td align=right>Pid Kc parameter: </td> 
 	    		        <td>
 	    					<input type="text" name="k"  maxlength = "6" size ="6" value=$k_param style="text-align: right;"/> <br>
 	    				</td>
-	    				<td>%/&#176F</td>
+	    				<td>%/&#176C</td>
 	    			</tr>
 	    			<tr>
 	    				<td align=right>Duty Cycle: </td>
