@@ -1,0 +1,10 @@
+MANIFEST
+build
+dist
+_build
+.DS_Store
+.spyderproject
+*.py[co]
+*.egg-info
+*~
+*.bak
